@@ -34,9 +34,42 @@ try {
   
   // Pure JS In-Memory Database Engine Fallback for Vercel Serverless
   const memoryStore = {
-    users: [],
-    content: {},
-    settings: {},
+    users: [
+      { id: 1, username: "superadmin", email: "superadmin@prsaroller.com", password_hash: "$2a$10$7Z2v1w9X0.GzM/rB5wV7JzW.k8d5.v3p2q1r0s9t6", role: "Super Admin" },
+      { id: 2, username: "clientadmin", email: "client@prsaroller.com", password_hash: "$2a$10$7Z2v1w9X0.GzM/rB5wV7JzW.k8d5.v3p2q1r0s9t6", role: "Client Admin" }
+    ],
+    content: {
+      "hero_badge": "⚡ OFFICIAL RSFI AFFILIATED ACADEMY • BENGALURU, KARNATAKA",
+      "hero_sub_badge": "ELECTRONIC CITY • NEO TOWN • HSR • FLOODLIT ARENA",
+      "hero_title_1": "UNLEASH SPEED.",
+      "hero_title_2": "MASTER THE RINK.",
+      "hero_description": "Official RSFI roller skating training in Bangalore. From beginner balance & falling safety to podium medals at Ryan International, Viva Vibgyor, and State/National Championships.",
+      "hero_bg_image": "/uploads/prsa_media_10.jpg",
+      "hero_cta_primary_text": "BOOK A FREE TRIAL CLASS",
+      "hero_cta_primary_link": "#trial",
+      "hero_cta_secondary_text": "VIEW REAL ACTION GALLERY",
+      "hero_cta_secondary_link": "#gallery",
+      "stat_1_val": "850+",
+      "stat_1_lbl": "ACTIVE SKATERS TRAINED",
+      "stat_2_val": "12+",
+      "stat_2_lbl": "NATIONAL CHAMPIONSHIP MEDALS",
+      "stat_3_val": "8 RSFI",
+      "stat_3_lbl": "CERTIFIED CHIEF COACHES",
+      "stat_4_val": "100%",
+      "stat_4_lbl": "SAFETY & HELMET COMPLIANCE"
+    },
+    settings: {
+      "academy_name": "Professional Roller Skating Academy (PRSA)",
+      "tagline": "Unleash Speed. Master The Rink.",
+      "phone": "+91 98765 43210",
+      "whatsapp": "919876543210",
+      "email": "admissions@prsaroller.com",
+      "admin_notify_email": "headcoach@prsaroller.com",
+      "address": "PRSA Banked Speed Track Arena, Electronic City / Neo Town Corridor, Bengaluru, Karnataka 560100",
+      "business_hours": "Morning: 6:00 AM – 9:30 AM | Evening: 5:00 PM – 8:30 PM (Tue - Sun)",
+      "meta_title": "PRSA — Official RSFI Roller Skating Academy Bengaluru",
+      "meta_description": "Official RSFI affiliated roller skating training in Bangalore. Quad, inline speed & slalom coaching for toddlers to championship athletes."
+    },
     programs: [],
     coaches: [],
     events: [],

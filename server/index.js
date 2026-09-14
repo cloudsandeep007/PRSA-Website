@@ -11,13 +11,15 @@ import db, { initDb } from './db.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+import { seedDatabase } from './seed.js';
+
 const JWT_SECRET = process.env.JWT_SECRET || 'prsa_skating_academy_secret_key_2026';
 const PORT = process.env.PORT || 5000;
 
 // Initialize DB schema & seed default data
 try {
   initDb();
-  import('./seed.js').catch(err => console.error("Seed error:", err));
+  seedDatabase();
 } catch (e) {
   console.error("DB init error:", e);
 }
