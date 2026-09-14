@@ -49,6 +49,8 @@ export function seedDatabase() {
 
     // Seed Content (Hero, About)
     const defaultContent = [
+      { key: "hero_type", value: "video" },
+      { key: "hero_video_url", value: "https://assets.mixkit.co/videos/preview/mixkit-skaters-racing-on-an-outdoor-rink-41561-large.mp4" },
       { key: "hero_badge", value: "⚡ OFFICIAL RSFI AFFILIATED ACADEMY • BENGALURU, KARNATAKA" },
       { key: "hero_sub_badge", value: "ELECTRONIC CITY • NEO TOWN • HSR • FLOODLIT ARENA" },
       { key: "hero_title_1", value: "UNLEASH SPEED." },

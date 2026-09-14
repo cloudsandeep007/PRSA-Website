@@ -9,15 +9,18 @@ export default function Hero({ content, settings }) {
   const description = content.hero_description || "Official RSFI roller skating training in Bangalore. From beginner balance & falling safety to podium medals at Ryan International, Viva Vibgyor, and State/National Championships.";
   
   // Media Type Configuration
-  const heroType = content.hero_type || 'photo'; // 'photo' | 'video' | 'slideshow'
+  const heroType = content.hero_type || 'video'; // Default to 'video' for dynamic hero background
   const bgImage = content.hero_bg_image || "/uploads/prsa_media_10.jpg";
   
-  let videoUrl = content.hero_video_url || "";
-  if (videoUrl === 'SESSION_VIDEO' || !videoUrl) {
+  let videoUrl = content.hero_video_url;
+  if (!videoUrl || videoUrl === 'SESSION_VIDEO') {
     try {
       const sessionVid = sessionStorage.getItem('prsa_huge_hero_video');
       if (sessionVid) videoUrl = sessionVid;
     } catch (e) {}
+  }
+  if (!videoUrl) {
+    videoUrl = "https://assets.mixkit.co/videos/preview/mixkit-skaters-racing-on-an-outdoor-rink-41561-large.mp4";
   }
   
   // Slideshow URLs parsing

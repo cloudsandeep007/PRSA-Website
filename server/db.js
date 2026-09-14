@@ -39,6 +39,8 @@ try {
       { id: 2, username: "clientadmin", email: "client@prsaroller.com", password_hash: "$2a$10$7Z2v1w9X0.GzM/rB5wV7JzW.k8d5.v3p2q1r0s9t6", role: "Client Admin" }
     ],
     content: {
+      "hero_type": "video",
+      "hero_video_url": "https://assets.mixkit.co/videos/preview/mixkit-skaters-racing-on-an-outdoor-rink-41561-large.mp4",
       "hero_badge": "⚡ OFFICIAL RSFI AFFILIATED ACADEMY • BENGALURU, KARNATAKA",
       "hero_sub_badge": "ELECTRONIC CITY • NEO TOWN • HSR • FLOODLIT ARENA",
       "hero_title_1": "UNLEASH SPEED.",
