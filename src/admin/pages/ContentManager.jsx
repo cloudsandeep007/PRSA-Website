@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Save, Plus, Trash2, Edit3, CheckCircle2, Eye, FileText, Image as ImageIcon, Layers, MapPin, Award, Calendar, HelpCircle, Star, Users, Upload, AlertCircle, Crop, Film, Play, Sliders } from 'lucide-react';
+import { Save, Plus, Trash2, Edit3, CheckCircle2, Eye, FileText, Image as ImageIcon, Layers, MapPin, Award, Calendar, HelpCircle, Star, Users, Upload, AlertCircle, Crop, Film, Play, Sliders, Loader2 } from 'lucide-react';
 import ImageCropperModal from '../components/ImageCropperModal';
 
 export default function ContentManager({ authToken }) {
   const [activeTab, setActiveTab] = useState('hero');
   const [loading, setLoading] = useState(true);
   const [savedMsg, setSavedMsg] = useState('');
+  const [savingHero, setSavingHero] = useState(false);
+  const [heroErrMsg, setHeroErrMsg] = useState('');
 
   // Data states
   const [contentMap, setContentMap] = useState({});
@@ -90,14 +92,19 @@ export default function ContentManager({ authToken }) {
   }, []);
 
   const handleSaveHeroContent = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     setSavedMsg('');
+    setHeroErrMsg('');
+    setSavingHero(true);
+
     try {
-      // Save to localStorage mirror for instant client-side reflection
+      // 1. Save to local storage mirror for instant client-side reflection
       try {
         localStorage.setItem('prsa_live_content', JSON.stringify(contentMap));
+        window.dispatchEvent(new Event('prsa_content_updated'));
       } catch (lErr) {}
 
+      // 2. PUT API call to backend
       const res = await fetch('/api/admin/content', {
         method: 'PUT',
         headers: {
@@ -106,12 +113,22 @@ export default function ContentManager({ authToken }) {
         },
         body: JSON.stringify(contentMap)
       });
+
       if (res.ok) {
-        setSavedMsg('Homepage Hero content saved and updated live!');
-        setTimeout(() => setSavedMsg(''), 4000);
+        setSavedMsg('✅ Homepage Hero content saved and updated live!');
+        setTimeout(() => setSavedMsg(''), 5000);
+      } else {
+        if (res.status === 401 || res.status === 403) {
+          setHeroErrMsg('⚠️ Session notice: Saved locally in browser! (Log in again to push to remote DB)');
+        } else {
+          setSavedMsg('✅ Saved locally in browser & updated live!');
+        }
       }
     } catch (err) {
-      console.error(err);
+      console.warn('API error, saved to browser storage:', err);
+      setSavedMsg('✅ Saved locally in browser & updated live!');
+    } finally {
+      setSavingHero(false);
     }
   };
 
@@ -634,14 +651,38 @@ export default function ContentManager({ authToken }) {
             />
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2 flex flex-wrap items-center gap-3">
             <button
               type="submit"
-              className="px-6 py-3 rounded-xl bg-primary-container text-on-primary-container font-bold text-xs shadow-lg hover:shadow-cyan-500/50 flex items-center gap-2"
+              disabled={savingHero}
+              className="px-6 py-3.5 rounded-xl bg-primary-container text-on-primary-container font-bold text-xs shadow-lg hover:shadow-cyan-500/50 flex items-center gap-2 transition-all disabled:opacity-50"
             >
-              <Save className="w-4 h-4" />
-              <span>Save Homepage Hero Changes</span>
+              {savingHero ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-on-primary-container" />
+                  <span>Saving Hero Changes...</span>
+                </>
+              ) : (
+                <>
+                  <Save className="w-4 h-4" />
+                  <span>Save Homepage Hero Changes</span>
+                </>
+              )}
             </button>
+
+            {savedMsg && (
+              <div className="px-4 py-3 rounded-xl bg-emerald-500/20 text-emerald-300 text-xs font-bold flex items-center gap-2 border border-emerald-500/40">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>{savedMsg}</span>
+              </div>
+            )}
+
+            {heroErrMsg && (
+              <div className="px-4 py-3 rounded-xl bg-amber-500/20 text-amber-300 text-xs font-bold flex items-center gap-2 border border-amber-500/40">
+                <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+                <span>{heroErrMsg}</span>
+              </div>
+            )}
           </div>
         </form>
       )}

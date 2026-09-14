@@ -80,6 +80,24 @@ export default function PublicSite() {
     }
 
     fetchAllData();
+
+    const handleUpdate = () => {
+      try {
+        const raw = localStorage.getItem('prsa_live_content');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          setContent(prev => ({ ...prev, ...parsed }));
+        }
+      } catch (e) {}
+    };
+
+    window.addEventListener('prsa_content_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+
+    return () => {
+      window.removeEventListener('prsa_content_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
   }, []);
 
   if (loading) {
