@@ -11,7 +11,14 @@ export default function Hero({ content, settings }) {
   // Media Type Configuration
   const heroType = content.hero_type || 'photo'; // 'photo' | 'video' | 'slideshow'
   const bgImage = content.hero_bg_image || "/uploads/prsa_media_10.jpg";
-  const videoUrl = content.hero_video_url || "";
+  
+  let videoUrl = content.hero_video_url || "";
+  if (videoUrl === 'SESSION_VIDEO' || !videoUrl) {
+    try {
+      const sessionVid = sessionStorage.getItem('prsa_huge_hero_video');
+      if (sessionVid) videoUrl = sessionVid;
+    } catch (e) {}
+  }
   
   // Slideshow URLs parsing
   let slideshowUrls = ["/uploads/prsa_media_10.jpg", "/uploads/prsa_media_02.jpg", "/uploads/prsa_media_01.jpg"];

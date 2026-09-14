@@ -98,20 +98,35 @@ export default function ContentManager({ authToken }) {
     setSavingHero(true);
 
     try {
-      // 1. Save to local storage mirror for instant client-side reflection
-      try {
-        localStorage.setItem('prsa_live_content', JSON.stringify(contentMap));
-        window.dispatchEvent(new Event('prsa_content_updated'));
-      } catch (lErr) {}
+      // 1. Sanitize contentMap for localStorage to prevent QuotaExceededError when huge Base64 video is attached
+      const cleanContent = { ...contentMap };
+      if (cleanContent.hero_video_url && cleanContent.hero_video_url.length > 200000) {
+        try {
+          sessionStorage.setItem('prsa_huge_hero_video', cleanContent.hero_video_url);
+        } catch (sErr) {}
+        cleanContent.hero_video_url = 'SESSION_VIDEO';
+      }
 
-      // 2. PUT API call to backend
+      try {
+        localStorage.setItem('prsa_live_content', JSON.stringify(cleanContent));
+        window.dispatchEvent(new Event('prsa_content_updated'));
+      } catch (lErr) {
+        console.warn('LocalStorage quota notice:', lErr);
+      }
+
+      // 2. Prepare payload for Vercel API (ensure payload stays safely under 3MB Vercel HTTP limit)
+      const payloadMap = { ...contentMap };
+      if (payloadMap.hero_video_url && payloadMap.hero_video_url.length > 2500000) {
+        payloadMap.hero_video_url = 'SESSION_VIDEO';
+      }
+
       const res = await fetch('/api/admin/content', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authToken}`
         },
-        body: JSON.stringify(contentMap)
+        body: JSON.stringify(payloadMap)
       });
 
       if (res.ok) {
