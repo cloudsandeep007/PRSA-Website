@@ -5,18 +5,16 @@ export default function EventsSection({ events }) {
   return (
     <section className="w-full py-space-2xl bg-surface-container-lowest relative border-y border-outline-variant/20" id="events">
       <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
-          <div>
-            <span className="font-label-uppercase text-label-uppercase tracking-widest text-secondary font-bold text-[11px]">
-              COMPETITION CALENDAR
-            </span>
-            <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1">
-              UPCOMING TOURNAMENTS & TRIALS
-            </h2>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl">
-              Official RSFI state trials, inter-school championships, and summer speed clinics.
-            </p>
-          </div>
+        <div className="text-center max-w-2xl mx-auto mb-space-xl space-y-space-xs">
+          <span className="font-label-uppercase text-label-uppercase tracking-widest text-secondary font-bold text-[11px]">
+            COMPETITION CALENDAR
+          </span>
+          <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1 text-center">
+            UPCOMING TOURNAMENTS & TRIALS
+          </h2>
+          <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl text-center mx-auto">
+            Official RSFI state trials, inter-school championships, and summer speed clinics.
+          </p>
         </div>
 
         <div className="space-y-space-md">

@@ -5,18 +5,16 @@ export default function AchievementsSection({ achievements }) {
   return (
     <section className="w-full py-space-2xl bg-surface-container-lowest relative border-y border-outline-variant/20" id="achievements">
       <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
-          <div>
-            <span className="font-label-uppercase text-label-uppercase tracking-widest text-secondary font-bold text-[11px]">
-              CHAMPIONSHIP PODIUM WALL
-            </span>
-            <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1">
-              ACADEMY MEDAL TALLY
-            </h2>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl">
-              PRSA athletes regularly win top medals at District, RSFI State, RSFI National, and prestigious inter-school competitions.
-            </p>
-          </div>
+        <div className="text-center max-w-2xl mx-auto mb-space-xl space-y-space-xs">
+          <span className="font-label-uppercase text-label-uppercase tracking-widest text-secondary font-bold text-[11px]">
+            CHAMPIONSHIP PODIUM WALL
+          </span>
+          <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1">
+            ACADEMY MEDAL TALLY
+          </h2>
+          <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl mx-auto">
+            PRSA athletes regularly win top medals at District, RSFI State, RSFI National, and prestigious inter-school competitions.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">

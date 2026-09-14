@@ -18,21 +18,19 @@ export default function ProgramsSection({ programs }) {
     <section className="w-full py-space-2xl bg-surface-container-lowest relative" id="programs">
       <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-space-md">
-          <div>
-            <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
-              ACADEMY DISCIPLINES
-            </span>
-            <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1">
-              FIND YOUR PERFECT PROGRAM
-            </h2>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl">
-              Tailored curriculums from ages 4 to adults across Quad Skates, Inline Speed, and Freestyle Slalom. Certified RSFI progression with safe student-to-coach ratios.
-            </p>
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-space-xl space-y-space-xs flex flex-col items-center">
+          <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
+            ACADEMY DISCIPLINES
+          </span>
+          <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1 text-center">
+            FIND YOUR PERFECT PROGRAM
+          </h2>
+          <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl text-center mx-auto">
+            Tailored curriculums from ages 4 to adults across Quad Skates, Inline Speed, and Freestyle Slalom. Certified RSFI progression with safe student-to-coach ratios.
+          </p>
 
-          <div className="flex items-center gap-2">
-            <span className="text-on-surface-variant font-label-uppercase text-xs font-bold">Filter:</span>
+          <div className="flex items-center justify-center gap-2 flex-wrap pt-3">
+            <span className="text-on-surface-variant font-label-uppercase text-xs font-bold mr-1">Filter:</span>
             {filterOptions.map(opt => (
               <button
                 key={opt}

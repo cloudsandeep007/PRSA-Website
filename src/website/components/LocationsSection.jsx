@@ -25,24 +25,22 @@ export default function LocationsSection({ locations }) {
   return (
     <section className="w-full py-space-2xl bg-surface-container-lowest" id="locations">
       <div className="max-w-[1440px] mx-auto px-margin-mobile md:px-margin">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-space-xl gap-4">
-          <div>
-            <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
-              INTERACTIVE VENUE MAP
-            </span>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary font-bold mt-1">
-              PRSA TRAINING VENUES & GOOGLE MAPS
-            </h2>
-            <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-2 text-xs md:text-sm">
-              All PRSA centers are equipped with synthetic banked rinks, shock-cushioned perimeter barriers, gear rental counters, and RSFI timing gates. Select a venue below to locate it on Google Maps.
-            </p>
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-space-xl space-y-space-xs flex flex-col items-center">
+          <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
+            INTERACTIVE VENUE MAP
+          </span>
+          <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary font-bold mt-1 text-center">
+            PRSA TRAINING VENUES & GOOGLE MAPS
+          </h2>
+          <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-2 text-xs md:text-sm text-center mx-auto">
+            All PRSA centers are equipped with synthetic banked rinks, shock-cushioned perimeter barriers, gear rental counters, and RSFI timing gates. Select a venue below to locate it on Google Maps.
+          </p>
 
           <a
             href={selectedLoc.maps_url || `https://maps.google.com/?q=${mapEmbedQuery}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-container text-on-primary-container font-bold text-xs shadow-lg hover:shadow-cyan-500/30 transition-all shrink-0 self-start md:self-auto"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-primary-container text-on-primary-container font-bold text-xs shadow-lg hover:shadow-cyan-500/30 transition-all mt-3"
           >
             <Navigation className="w-4 h-4" />
             <span>Open Directions in Google Maps</span>

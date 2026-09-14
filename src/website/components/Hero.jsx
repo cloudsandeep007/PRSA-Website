@@ -163,9 +163,9 @@ export default function Hero({ content, settings }) {
       <div className="absolute top-0 inset-x-0 h-40 z-1 pointer-events-none bg-gradient-to-b from-surface-container-lowest to-transparent"></div>
 
       {/* Hero Content Stage */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-36 pb-space-2xl lg:min-h-[92vh] flex flex-col justify-end">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-36 pb-space-2xl lg:min-h-[92vh] flex flex-col justify-end items-center text-center">
         {/* Telemetry Status Pill */}
-        <div className="flex flex-wrap items-center gap-space-sm mb-space-md">
+        <div className="flex flex-wrap items-center justify-center gap-space-sm mb-space-md">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-low/95 backdrop-blur-md shadow-sm border border-primary-container/40">
             <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_10px_#00f0ff]"></span>
             <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary font-bold text-[11px]">
@@ -180,8 +180,8 @@ export default function Hero({ content, settings }) {
         </div>
 
         {/* Hero Headline & Insignia */}
-        <div className="max-w-4xl space-y-space-md">
-          <div className="inline-flex items-center gap-3 bg-surface-container-lowest/80 backdrop-blur px-4 py-2 rounded-xl border border-outline-variant/30 mb-1">
+        <div className="max-w-4xl space-y-space-md flex flex-col items-center text-center mx-auto">
+          <div className="inline-flex items-center justify-center gap-3 bg-surface-container-lowest/80 backdrop-blur px-4 py-2 rounded-xl border border-outline-variant/30 mb-1">
             <img src="/logo/prsa_logo.png" alt="PRSA Logo" className="h-7 w-auto object-contain" />
 
             <div className="h-4 w-[1px] bg-outline-variant/40"></div>
@@ -190,19 +190,19 @@ export default function Hero({ content, settings }) {
             </span>
           </div>
 
-          <h1 className="font-display-hero text-display-hero-mobile md:text-display-hero uppercase tracking-tight text-primary font-bold drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
+          <h1 className="font-display-hero text-display-hero-mobile md:text-display-hero uppercase tracking-tight text-primary font-bold drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)] text-center">
             {title1} <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-primary to-inverse-surface drop-shadow-[0_0_35px_rgba(0,240,255,0.4)]">
               {title2}
             </span>
           </h1>
 
-          <p className="font-body-xl text-body-lg md:text-body-xl text-on-surface-variant max-w-2xl leading-relaxed">
+          <p className="font-body-xl text-body-lg md:text-body-xl text-on-surface-variant max-w-2xl leading-relaxed text-center mx-auto">
             {description}
           </p>
 
           {/* Action CTAs */}
-          <div className="pt-space-sm flex flex-wrap items-center gap-space-md">
+          <div className="pt-space-sm flex flex-wrap items-center justify-center gap-space-md">
             <a
               href="#trial"
               className="bg-primary-container text-on-primary-container font-label-uppercase text-label-uppercase tracking-widest px-8 py-4 rounded-full font-bold shadow-[0_0_30px_rgba(0,240,255,0.45)] hover:shadow-[0_0_45px_rgba(0,240,255,0.7)] transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2"
@@ -221,7 +221,7 @@ export default function Hero({ content, settings }) {
           </div>
 
           {/* Social Proof Badges */}
-          <div className="pt-space-md flex flex-wrap items-center gap-y-2 gap-x-space-lg text-on-surface-variant font-body-sm text-body-sm">
+          <div className="pt-space-md flex flex-wrap items-center justify-center gap-y-2 gap-x-space-lg text-on-surface-variant font-body-sm text-body-sm">
             <div className="flex items-center gap-2 bg-surface-container-lowest/80 px-3 py-1.5 rounded-full border border-outline-variant/30">
               <span className="font-bold text-on-surface">Google</span>
               <div className="flex text-[#FFB800]">
