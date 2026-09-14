@@ -50,7 +50,7 @@ export function seedDatabase() {
     // Seed Content (Hero, About)
     const defaultContent = [
       { key: "hero_type", value: "video" },
-      { key: "hero_video_url", value: "/uploads/prsa_hero_video.mp4" },
+      { key: "hero_video_url", value: "/uploads/create_a_video_for_my_sketing.mp4" },
       { key: "hero_badge", value: "⚡ OFFICIAL RSFI AFFILIATED ACADEMY • BENGALURU, KARNATAKA" },
       { key: "hero_sub_badge", value: "ELECTRONIC CITY • NEO TOWN • HSR • FLOODLIT ARENA" },
       { key: "hero_title_1", value: "UNLEASH SPEED." },

@@ -40,7 +40,7 @@ try {
     ],
     content: {
       "hero_type": "video",
-      "hero_video_url": "/uploads/prsa_hero_video.mp4",
+      "hero_video_url": "/uploads/create_a_video_for_my_sketing.mp4",
       "hero_badge": "⚡ OFFICIAL RSFI AFFILIATED ACADEMY • BENGALURU, KARNATAKA",
       "hero_sub_badge": "ELECTRONIC CITY • NEO TOWN • HSR • FLOODLIT ARENA",
       "hero_title_1": "UNLEASH SPEED.",

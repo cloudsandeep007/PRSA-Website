@@ -20,7 +20,7 @@ export default function Hero({ content, settings }) {
     } catch (e) {}
   }
   if (!videoUrl) {
-    videoUrl = "/uploads/prsa_hero_video.mp4";
+    videoUrl = "/uploads/create_a_video_for_my_sketing.mp4";
   }
   
   // Slideshow URLs parsing
