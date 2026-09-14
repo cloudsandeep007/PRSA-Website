@@ -1140,7 +1140,7 @@ export default function ContentManager({ authToken }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
           <div className="bg-surface-container-low border border-outline-variant/30 rounded-2xl max-w-xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-bold text-primary uppercase">
-              {editItem.id ? `Edit ${editType.slice(0, -1)}` : `Add New ${editType.slice(0, -1)}`}
+              {editItem.id ? `Edit ${editType === 'coaches' ? 'Coach' : editType.slice(0, -1)}` : `Add New ${editType === 'coaches' ? 'Coach' : editType.slice(0, -1)}`}
             </h3>
 
             {/* PROGRAMS EDIT FORM */}

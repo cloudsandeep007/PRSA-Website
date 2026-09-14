@@ -57,12 +57,28 @@ export default function ImageCropperModal({ imageSrc, onCropComplete, onCancel, 
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
     
-    canvas.width = completedCrop.width * scaleX;
-    canvas.height = completedCrop.height * scaleY;
+    let targetWidth = completedCrop.width * scaleX;
+    let targetHeight = completedCrop.height * scaleY;
+
+    // Constrain max dimensions to 800px so Base64 strings stay lightweight (~50KB-80KB)
+    const maxDim = 800;
+    if (targetWidth > maxDim || targetHeight > maxDim) {
+      if (targetWidth >= targetHeight) {
+        targetHeight = Math.round((targetHeight * maxDim) / targetWidth);
+        targetWidth = maxDim;
+      } else {
+        targetWidth = Math.round((targetWidth * maxDim) / targetHeight);
+        targetHeight = maxDim;
+      }
+    }
+
+    canvas.width = targetWidth;
+    canvas.height = targetHeight;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return null;
 
+    ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
     ctx.drawImage(
       image,
@@ -72,8 +88,8 @@ export default function ImageCropperModal({ imageSrc, onCropComplete, onCancel, 
       completedCrop.height * scaleY,
       0,
       0,
-      canvas.width,
-      canvas.height
+      targetWidth,
+      targetHeight
     );
 
     return new Promise((resolve) => {
@@ -87,7 +103,7 @@ export default function ImageCropperModal({ imageSrc, onCropComplete, onCancel, 
           lastModified: Date.now(),
         });
         resolve(croppedFile);
-      }, 'image/jpeg', 0.92);
+      }, 'image/jpeg', 0.85);
     });
   };
 
