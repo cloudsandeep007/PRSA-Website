@@ -11,6 +11,7 @@ import EventsSection from './components/EventsSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import TrialBookingSection from './components/TrialBookingSection';
 import LocationsSection from './components/LocationsSection';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
 import FAQSection from './components/FAQSection';
 import Footer from './components/Footer';
 import { Loader2 } from 'lucide-react';
@@ -127,6 +128,7 @@ export default function PublicSite() {
         <FAQSection faqs={faqs} />
       </main>
       <Footer settings={settings} />
+      <FloatingWhatsApp whatsappNumber={settings.whatsapp} />
     </div>
   );
 }
