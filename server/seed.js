@@ -44,10 +44,13 @@ export function seedDatabase() {
     ];
 
     for (const s of defaultSettings) {
-      db.prepare("INSERT OR REPLACE INTO settings (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)").run(s.key, s.value);
+      const existing = db.prepare("SELECT key FROM settings WHERE key = ?").get(s.key);
+      if (!existing) {
+        db.prepare("INSERT INTO settings (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)").run(s.key, s.value);
+      }
     }
 
-    // Seed Content (Hero, About)
+    // Seed Content (Hero, About) - Only insert default keys if not already present
     const defaultContent = [
       { key: "hero_type", value: "video" },
       { key: "hero_video_url", value: "/uploads/create_a_video_for_my_sketing.mp4" },
@@ -72,7 +75,10 @@ export function seedDatabase() {
     ];
 
     for (const c of defaultContent) {
-      db.prepare("INSERT OR REPLACE INTO content (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)").run(c.key, c.value);
+      const existing = db.prepare("SELECT key FROM content WHERE key = ?").get(c.key);
+      if (!existing) {
+        db.prepare("INSERT INTO content (key, value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)").run(c.key, c.value);
+      }
     }
 
     // Seed Programs

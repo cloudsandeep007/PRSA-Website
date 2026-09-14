@@ -80,7 +80,13 @@ export default function ContentManager({ authToken }) {
         safeFetchJson('/api/faqs', [])
       ]);
 
-      setContentMap(resContent || {});
+      let localContent = {};
+      try {
+        const rawContent = localStorage.getItem('prsa_live_content');
+        if (rawContent) localContent = JSON.parse(rawContent);
+      } catch (e) {}
+
+      setContentMap({ ...(resContent || {}), ...localContent });
 
       const getLocalOrApi = (type, apiData) => {
         try {
