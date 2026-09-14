@@ -31,6 +31,7 @@ export default function PublicSite() {
   useEffect(() => {
     async function fetchAllData() {
       try {
+        const ts = Date.now();
         const [
           resContent,
           resSettings,
@@ -43,19 +44,25 @@ export default function PublicSite() {
           resLoc,
           resFaqs
         ] = await Promise.all([
-          fetch('/api/content').then(r => r.json()),
-          fetch('/api/settings').then(r => r.json()),
-          fetch('/api/programs').then(r => r.json()),
-          fetch('/api/coaches').then(r => r.json()),
-          fetch('/api/events').then(r => r.json()),
-          fetch('/api/achievements').then(r => r.json()),
-          fetch('/api/gallery').then(r => r.json()),
-          fetch('/api/testimonials').then(r => r.json()),
-          fetch('/api/locations').then(r => r.json()),
-          fetch('/api/faqs').then(r => r.json())
+          fetch(`/api/content?t=${ts}`).then(r => r.json()).catch(() => ({})),
+          fetch(`/api/settings?t=${ts}`).then(r => r.json()).catch(() => ({})),
+          fetch(`/api/programs?t=${ts}`).then(r => r.json()).catch(() => ([])),
+          fetch(`/api/coaches?t=${ts}`).then(r => r.json()).catch(() => ([])),
+          fetch(`/api/events?t=${ts}`).then(r => r.json()).catch(() => ([])),
+          fetch(`/api/achievements?t=${ts}`).then(r => r.json()).catch(() => ([])),
+          fetch(`/api/gallery?t=${ts}`).then(r => r.json()).catch(() => ([])),
+          fetch(`/api/testimonials?t=${ts}`).then(r => r.json()).catch(() => ([])),
+          fetch(`/api/locations?t=${ts}`).then(r => r.json()).catch(() => ([])),
+          fetch(`/api/faqs?t=${ts}`).then(r => r.json()).catch(() => ([]))
         ]);
 
-        setContent(resContent || {});
+        let localContent = {};
+        try {
+          const raw = localStorage.getItem('prsa_live_content');
+          if (raw) localContent = JSON.parse(raw);
+        } catch (lErr) {}
+
+        setContent({ ...(resContent || {}), ...localContent });
         setSettings(resSettings || {});
         setPrograms(resPrograms || []);
         setCoaches(resCoaches || []);

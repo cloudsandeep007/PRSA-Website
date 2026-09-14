@@ -93,6 +93,11 @@ export default function ContentManager({ authToken }) {
     e.preventDefault();
     setSavedMsg('');
     try {
+      // Save to localStorage mirror for instant client-side reflection
+      try {
+        localStorage.setItem('prsa_live_content', JSON.stringify(contentMap));
+      } catch (lErr) {}
+
       const res = await fetch('/api/admin/content', {
         method: 'PUT',
         headers: {

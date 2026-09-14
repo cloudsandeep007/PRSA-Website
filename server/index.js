@@ -30,6 +30,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Prevent CDN / Vercel Edge caching of API routes
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 // Serve uploaded media statically
 const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
 osEnsureDir(uploadsDir);
