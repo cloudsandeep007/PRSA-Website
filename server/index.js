@@ -31,7 +31,9 @@ app.use(express.urlencoded({ extended: true }));
 // Serve uploaded media statically
 const uploadsDir = path.join(__dirname, '..', 'public', 'uploads');
 osEnsureDir(uploadsDir);
-app.use('/uploads', express.static(uploadsDir));
+if (fs.existsSync(uploadsDir)) {
+  app.use('/uploads', express.static(uploadsDir));
+}
 
 // Also serve public folder statically in production
 const distDir = path.join(__dirname, '..', 'dist');
@@ -40,8 +42,12 @@ if (fs.existsSync(distDir)) {
 }
 
 function osEnsureDir(dir) {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  } catch (err) {
+    console.warn('ReadOnly filesystem notice (osEnsureDir):', err.message);
   }
 }
 
