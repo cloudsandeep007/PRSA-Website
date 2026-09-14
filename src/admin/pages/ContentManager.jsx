@@ -26,6 +26,23 @@ export default function ContentManager({ authToken }) {
   const [cropTarget, setCropTarget] = useState(null); // { imageSrc, fieldName, defaultAspect, isSlideshowAdd }
   const [uploadingVideo, setUploadingVideo] = useState(false);
 
+  const safeFetchJson = async (url, fallback = []) => {
+    try {
+      const res = await fetch(url);
+      if (res.ok) {
+        const text = await res.text();
+        try {
+          return JSON.parse(text);
+        } catch (e) {
+          return fallback;
+        }
+      }
+      return fallback;
+    } catch (e) {
+      return fallback;
+    }
+  };
+
   async function loadAllContent() {
     setLoading(true);
     try {
@@ -40,15 +57,15 @@ export default function ContentManager({ authToken }) {
         resLoc,
         resFaq
       ] = await Promise.all([
-        fetch('/api/content').then(r => r.json()),
-        fetch('/api/programs').then(r => r.json()),
-        fetch('/api/coaches').then(r => r.json()),
-        fetch('/api/events').then(r => r.json()),
-        fetch('/api/achievements').then(r => r.json()),
-        fetch('/api/gallery').then(r => r.json()),
-        fetch('/api/testimonials').then(r => r.json()),
-        fetch('/api/locations').then(r => r.json()),
-        fetch('/api/faqs').then(r => r.json())
+        safeFetchJson('/api/content', {}),
+        safeFetchJson('/api/programs', []),
+        safeFetchJson('/api/coaches', []),
+        safeFetchJson('/api/events', []),
+        safeFetchJson('/api/achievements', []),
+        safeFetchJson('/api/gallery', []),
+        safeFetchJson('/api/testimonials', []),
+        safeFetchJson('/api/locations', []),
+        safeFetchJson('/api/faqs', [])
       ]);
 
       setContentMap(resContent || {});
@@ -61,11 +78,12 @@ export default function ContentManager({ authToken }) {
       setLocations(resLoc || []);
       setFaqs(resFaq || []);
     } catch (err) {
-      console.error(err);
+      console.error('Error loading content:', err);
     } finally {
       setLoading(false);
     }
   }
+
 
   useEffect(() => {
     loadAllContent();

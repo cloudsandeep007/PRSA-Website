@@ -15,8 +15,12 @@ const JWT_SECRET = process.env.JWT_SECRET || 'prsa_skating_academy_secret_key_20
 const PORT = process.env.PORT || 5000;
 
 // Initialize DB schema & seed default data
-initDb();
-import('./seed.js').catch(err => console.error("Seed error:", err));
+try {
+  initDb();
+  import('./seed.js').catch(err => console.error("Seed error:", err));
+} catch (e) {
+  console.error("DB init error:", e);
+}
 
 const app = express();
 
@@ -687,6 +691,11 @@ app.get('*', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🚀 PRSA Express Server running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL && !process.env.AWS_EXECUTION_ENV && !process.env.LAMBDA_TASK_ROOT) {
+  app.listen(PORT, () => {
+    console.log(`\n🚀 PRSA Express Server running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;
+
