@@ -29,20 +29,20 @@ export default function Header({ settings, onBookTrialClick }) {
 
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden xl:flex items-center gap-1 bg-surface-container-lowest/60 p-1 rounded-lg border border-outline-variant/20">
-          <a href="#" className="px-3 py-1.5 transition-colors bg-surface-container-highest text-primary font-bold rounded-lg shadow-sm">Home</a>
-          <a href="#about-philosophy" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">About</a>
-          <a href="#programs" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">Programs</a>
-          <a href="#coaches" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">Coaches</a>
-          <a href="#achievements" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">Achievements</a>
-          <a href="#gallery" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">Gallery</a>
-          <a href="#events" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">Events</a>
-          <a href="#locations" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">Locations</a>
-          <a href="#faq" className="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-3 py-1.5 transition-colors">FAQ</a>
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-surface-container-lowest/60 p-1 rounded-lg border border-outline-variant/20">
+          <a href="#" className="px-2.5 xl:px-3 py-1.5 transition-colors bg-surface-container-highest text-primary font-bold rounded-lg shadow-sm text-xs xl:text-sm">Home</a>
+          <a href="#about-philosophy" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">About</a>
+          <a href="#programs" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">Programs</a>
+          <a href="#coaches" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">Coaches</a>
+          <a href="#achievements" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">Achievements</a>
+          <a href="#gallery" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">Gallery</a>
+          <a href="#events" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">Events</a>
+          <a href="#locations" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">Locations</a>
+          <a href="#faq" className="font-label-md text-xs xl:text-sm text-on-surface-variant hover:text-on-surface px-2.5 xl:px-3 py-1.5 transition-colors">FAQ</a>
         </nav>
 
         {/* Action Controls & Portal */}
-        <div className="flex items-center gap-space-sm shrink-0">
+        <div className="flex items-center gap-2 sm:gap-space-sm shrink-0">
           <a
             href="https://wa.me/"
             target="_blank"
@@ -60,7 +60,7 @@ export default function Header({ settings, onBookTrialClick }) {
           <a
             href="#trial"
             onClick={onBookTrialClick}
-            className="bg-primary-container text-on-primary-container font-label-uppercase text-label-uppercase tracking-wider px-space-md py-space-sm rounded-full shadow-[0_0_16px_rgba(0,240,255,0.35)] hover:shadow-[0_0_24px_rgba(0,240,255,0.6)] transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center font-bold"
+            className="bg-primary-container text-on-primary-container font-label-uppercase text-xs sm:text-label-uppercase tracking-wider px-3.5 py-2 sm:px-space-md sm:py-space-sm rounded-full shadow-[0_0_16px_rgba(0,240,255,0.35)] hover:shadow-[0_0_24px_rgba(0,240,255,0.6)] transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center font-bold shrink-0"
           >
             Book Free Trial
           </a>
@@ -78,7 +78,7 @@ export default function Header({ settings, onBookTrialClick }) {
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 rounded-lg bg-surface-container-high text-on-surface hover:text-primary transition-colors"
+            className="lg:hidden p-2 rounded-lg bg-surface-container-high text-on-surface hover:text-primary transition-colors"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -88,18 +88,18 @@ export default function Header({ settings, onBookTrialClick }) {
 
       {/* Mobile Drawer Navigation */}
       {mobileMenuOpen && (
-        <div className="xl:hidden bg-surface-container-lowest border-b border-outline-variant/30 px-margin-mobile py-space-md space-y-3 animate-in slide-in-from-top duration-300">
+        <div className="lg:hidden bg-surface-container-lowest border-b border-outline-variant/30 px-margin-mobile py-space-md space-y-3 animate-in slide-in-from-top duration-300">
           <nav className="flex flex-col space-y-2">
-            <a onClick={() => setMobileMenuOpen(false)} href="#" className="py-2 px-3 rounded bg-surface-container-highest text-primary font-bold">Home</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#about-philosophy" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">About & Rink Specs</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#programs" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">Programs</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#coaches" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">Coaches</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#achievements" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">Achievements</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#gallery" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">Gallery</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#events" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">Events</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#locations" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">Locations</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="#faq" className="py-2 px-3 text-on-surface-variant hover:text-on-surface">FAQ</a>
-            <a onClick={() => setMobileMenuOpen(false)} href="/admin/login" className="py-2 px-3 text-primary font-bold flex items-center gap-2">
+            <a onClick={() => setMobileMenuOpen(false)} href="#" className="py-2.5 px-3 rounded bg-surface-container-highest text-primary font-bold text-sm">Home</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#about-philosophy" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">About & Rink Specs</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#programs" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">Programs</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#coaches" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">Coaches</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#achievements" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">Achievements</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#gallery" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">Gallery</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#events" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">Events</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#locations" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">Locations</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="#faq" className="py-2.5 px-3 text-on-surface-variant hover:text-on-surface text-sm">FAQ</a>
+            <a onClick={() => setMobileMenuOpen(false)} href="/admin/login" className="py-2.5 px-3 text-primary font-bold flex items-center gap-2 text-sm">
               <Lock className="w-4 h-4" /> Admin Portal
             </a>
           </nav>

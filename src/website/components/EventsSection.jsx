@@ -10,7 +10,7 @@ export default function EventsSection({ events }) {
             <span className="font-label-uppercase text-label-uppercase tracking-widest text-secondary font-bold text-[11px]">
               COMPETITION CALENDAR
             </span>
-            <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1">
+            <h2 className="font-headline-xl text-2xl sm:text-3xl md:text-4xl text-primary font-bold mt-1">
               UPCOMING TOURNAMENTS & TRIALS
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl">

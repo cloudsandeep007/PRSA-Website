@@ -14,7 +14,7 @@ export default function CoachesSection({ coaches = [] }) {
           <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
             RSFI ACCREDITED INSTRUCTORS
           </span>
-          <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold">
+          <h2 className="font-headline-xl text-2xl sm:text-3xl md:text-4xl text-primary font-bold">
             MEET OUR CHIEF COACHES
           </h2>
           <p className="font-body-md text-body-md text-on-surface-variant">

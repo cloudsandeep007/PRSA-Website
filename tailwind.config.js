@@ -73,6 +73,22 @@ export default {
         "body-md": ["Plus Jakarta Sans", "sans-serif"],
         "body-sm": ["Plus Jakarta Sans", "sans-serif"],
         "label-md": ["Plus Jakarta Sans", "sans-serif"]
+      },
+      fontSize: {
+        "display-hero": ["3.5rem", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
+        "display-hero-mobile": ["2.25rem", { lineHeight: "1.1", letterSpacing: "-0.01em" }],
+        "headline-xl": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.01em" }],
+        "headline-lg-mobile": ["1.65rem", { lineHeight: "1.25" }],
+        "headline-lg": ["2rem", { lineHeight: "1.25" }],
+        "headline-md": ["1.35rem", { lineHeight: "1.3" }],
+        "headline-sm": ["1.15rem", { lineHeight: "1.35" }],
+        "metric-stat": ["3rem", { lineHeight: "1.1" }],
+        "body-xl": ["1.15rem", { lineHeight: "1.6" }],
+        "body-lg": ["1.05rem", { lineHeight: "1.6" }],
+        "body-md": ["1rem", { lineHeight: "1.5" }],
+        "body-sm": ["0.875rem", { lineHeight: "1.5" }],
+        "label-uppercase": ["0.75rem", { lineHeight: "1.2" }],
+        "label-md": ["0.875rem", { lineHeight: "1.2" }]
       }
     }
   },

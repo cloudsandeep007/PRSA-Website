@@ -12,7 +12,7 @@ export default function FAQSection({ faqs }) {
             <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
               QUESTIONS ANSWERED
             </span>
-            <h3 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary font-bold">
+            <h3 className="font-headline-lg text-2xl sm:text-3xl md:text-4xl text-primary font-bold">
               FREQUENTLY ASKED QUESTIONS
             </h3>
           </div>

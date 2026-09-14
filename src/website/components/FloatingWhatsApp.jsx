@@ -9,7 +9,7 @@ export default function FloatingWhatsApp({ whatsappNumber = "919876543210" }) {
   const whatsappUrl = `https://wa.me/${cleanNum}?text=${message}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end group">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end group">
       {/* Floating Tooltip Callout */}
       {showTooltip && (
         <div className="mb-2 relative bg-surface-container-high border border-emerald-500/30 text-on-surface text-xs font-semibold px-3 py-2 rounded-xl shadow-2xl flex items-center gap-2 animate-bounce max-w-[220px]">

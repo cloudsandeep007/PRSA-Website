@@ -66,7 +66,7 @@ export default function TrialBookingSection({ locations }) {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/15 text-primary font-label-uppercase text-[11px] font-bold">
                   <span>RSFI ACCREDITED ASSESSMENT</span>
                 </div>
-                <h3 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold">
+                <h3 className="font-headline-xl text-2xl sm:text-3xl md:text-4xl text-primary font-bold">
                   TEST YOUR STRIDE WITH A CHIEF COACH.
                 </h3>
                 <p className="font-body-md text-body-md text-on-surface-variant leading-relaxed">
@@ -225,7 +225,7 @@ export default function TrialBookingSection({ locations }) {
                     <label className="font-label-uppercase text-label-uppercase text-on-surface-variant block mb-1.5 font-bold text-[10px]">
                       CURRENT SKATING EXPERIENCE
                     </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       {['First Timer', 'Can Glide / Turn', 'Past Medalist'].map(exp => (
                         <label
                           key={exp}

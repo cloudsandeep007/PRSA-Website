@@ -29,18 +29,18 @@ export default function AboutSection() {
                     NIGHT BATCHES ACTIVE
                   </span>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="bg-surface-container-high/60 p-2 rounded">
-                    <span className="text-on-surface-variant font-label-uppercase text-[10px] block">SURFACE</span>
-                    <span className="text-primary font-headline-sm font-bold text-sm">Banked Synthetic</span>
+                <div className="grid grid-cols-3 gap-1.5 sm:gap-2 text-center">
+                  <div className="bg-surface-container-high/60 p-1.5 sm:p-2 rounded">
+                    <span className="text-on-surface-variant font-label-uppercase text-[9px] sm:text-[10px] block">SURFACE</span>
+                    <span className="text-primary font-headline-sm font-bold text-xs sm:text-sm">Banked Synthetic</span>
                   </div>
-                  <div className="bg-surface-container-high/60 p-2 rounded">
-                    <span className="text-on-surface-variant font-label-uppercase text-[10px] block">SAFETY RAILS</span>
-                    <span className="text-secondary font-headline-sm font-bold text-sm">Shock Guard</span>
+                  <div className="bg-surface-container-high/60 p-1.5 sm:p-2 rounded">
+                    <span className="text-on-surface-variant font-label-uppercase text-[9px] sm:text-[10px] block">SAFETY RAILS</span>
+                    <span className="text-secondary font-headline-sm font-bold text-xs sm:text-sm">Shock Guard</span>
                   </div>
-                  <div className="bg-surface-container-high/60 p-2 rounded">
-                    <span className="text-on-surface-variant font-label-uppercase text-[10px] block">LIGHTING</span>
-                    <span className="text-primary-container font-headline-sm font-bold text-sm">3000W Floodlit</span>
+                  <div className="bg-surface-container-high/60 p-1.5 sm:p-2 rounded">
+                    <span className="text-on-surface-variant font-label-uppercase text-[9px] sm:text-[10px] block">LIGHTING</span>
+                    <span className="text-primary-container font-headline-sm font-bold text-xs sm:text-sm">3000W Floodlit</span>
                   </div>
                 </div>
               </div>
@@ -62,7 +62,7 @@ export default function AboutSection() {
               <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
                 ABOUT PRSA BANGALORE
               </span>
-              <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold leading-tight">
+              <h2 className="font-headline-xl text-2xl sm:text-3xl md:text-4xl text-primary font-bold leading-tight">
                 BUILDING ATHLETES. <br />
                 <span className="text-on-surface">SHAPING PODIUM CHAMPIONS.</span>
               </h2>

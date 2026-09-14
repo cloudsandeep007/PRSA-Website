@@ -30,7 +30,7 @@ export default function LocationsSection({ locations }) {
             <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary-container font-bold text-[11px]">
               INTERACTIVE VENUE MAP
             </span>
-            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary font-bold mt-1">
+            <h2 className="font-headline-lg text-2xl sm:text-3xl md:text-4xl text-primary font-bold mt-1">
               PRSA TRAINING VENUES & GOOGLE MAPS
             </h2>
             <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mt-2 text-xs md:text-sm">

@@ -10,7 +10,7 @@ export default function TestimonialsSection({ testimonials }) {
             <span className="text-[#FFB800]">★ 4.9 RATING</span>
             <span>• GOOGLE BUSINESS REVIEWS</span>
           </div>
-          <h2 className="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold mt-1">
+          <h2 className="font-headline-xl text-2xl sm:text-3xl md:text-4xl text-primary font-bold mt-1">
             TRUSTED BY 850+ FAMILIES
           </h2>
           <p className="font-body-md text-body-md text-on-surface-variant">

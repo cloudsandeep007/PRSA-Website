@@ -163,12 +163,12 @@ export default function Hero({ content, settings }) {
       <div className="absolute top-0 inset-x-0 h-40 z-1 pointer-events-none bg-gradient-to-b from-surface-container-lowest to-transparent"></div>
 
       {/* Hero Content Stage */}
-      <div className="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-36 pb-space-2xl lg:min-h-[92vh] flex flex-col justify-end">
+      <div className="relative z-10 max-w-[1440px] mx-auto px-margin-mobile md:px-margin pt-28 pb-12 md:pt-36 md:pb-space-2xl lg:min-h-[92vh] flex flex-col justify-end">
         {/* Telemetry Status Pill */}
-        <div className="flex flex-wrap items-center gap-space-sm mb-space-md">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-surface-container-low/95 backdrop-blur-md shadow-sm border border-primary-container/40">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-space-sm mb-space-md">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full bg-surface-container-low/95 backdrop-blur-md shadow-sm border border-primary-container/40">
             <span className="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_10px_#00f0ff]"></span>
-            <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary font-bold text-[11px]">
+            <span className="font-label-uppercase text-label-uppercase tracking-widest text-primary font-bold text-[10px] sm:text-[11px]">
               {badge}
             </span>
           </div>
@@ -181,42 +181,42 @@ export default function Hero({ content, settings }) {
 
         {/* Hero Headline & Insignia */}
         <div className="max-w-4xl space-y-space-md">
-          <div className="inline-flex items-center gap-3 bg-surface-container-lowest/80 backdrop-blur px-4 py-2 rounded-xl border border-outline-variant/30 mb-1">
-            <img src="/logo/prsa_logo.png" alt="PRSA Logo" className="h-7 w-auto object-contain" />
+          <div className="inline-flex items-center gap-2 sm:gap-3 bg-surface-container-lowest/80 backdrop-blur px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-outline-variant/30 mb-1">
+            <img src="/logo/prsa_logo.png" alt="PRSA Logo" className="h-6 sm:h-7 w-auto object-contain" />
 
             <div className="h-4 w-[1px] bg-outline-variant/40"></div>
-            <span className="font-label-uppercase text-[11px] text-primary-container font-bold tracking-widest">
+            <span className="font-label-uppercase text-[10px] sm:text-[11px] text-primary-container font-bold tracking-widest">
               {settings.academy_name || "PROFESSIONAL ROLLER SKATING ACADEMY"}
             </span>
           </div>
 
-          <h1 className="font-display-hero text-display-hero-mobile md:text-display-hero uppercase tracking-tight text-primary font-bold drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)]">
+          <h1 className="font-display-hero text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-tight text-primary font-bold drop-shadow-[0_4px_24px_rgba(0,0,0,0.8)] leading-[1.1]">
             {title1} <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-primary to-inverse-surface drop-shadow-[0_0_35px_rgba(0,240,255,0.4)]">
               {title2}
             </span>
           </h1>
 
-          <p className="font-body-xl text-body-lg md:text-body-xl text-on-surface-variant max-w-2xl leading-relaxed">
+          <p className="font-body-xl text-sm sm:text-base md:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
             {description}
           </p>
 
           {/* Action CTAs */}
-          <div className="pt-space-sm flex flex-wrap items-center gap-space-md">
+          <div className="pt-space-sm flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-space-md">
             <a
               href="#trial"
-              className="bg-primary-container text-on-primary-container font-label-uppercase text-label-uppercase tracking-widest px-8 py-4 rounded-full font-bold shadow-[0_0_30px_rgba(0,240,255,0.45)] hover:shadow-[0_0_45px_rgba(0,240,255,0.7)] transition-all transform hover:-translate-y-0.5 inline-flex items-center gap-2"
+              className="bg-primary-container text-on-primary-container font-label-uppercase text-xs sm:text-sm tracking-widest px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold shadow-[0_0_30px_rgba(0,240,255,0.45)] hover:shadow-[0_0_45px_rgba(0,240,255,0.7)] transition-all transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
             >
               <span>{content.hero_cta_primary_text || "BOOK A FREE TRIAL CLASS"}</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
 
             <a
               href="#gallery"
-              className="bg-surface-container/85 text-on-surface hover:text-primary font-label-uppercase text-label-uppercase tracking-widest px-8 py-4 rounded-full font-bold backdrop-blur-md border border-outline-variant/30 transition-all hover:bg-surface-container-high inline-flex items-center gap-2"
+              className="bg-surface-container/85 text-on-surface hover:text-primary font-label-uppercase text-xs sm:text-sm tracking-widest px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold backdrop-blur-md border border-outline-variant/30 transition-all hover:bg-surface-container-high inline-flex items-center justify-center gap-2"
             >
               <span>{content.hero_cta_secondary_text || "VIEW REAL ACTION GALLERY"}</span>
-              <Camera className="w-5 h-5" />
+              <Camera className="w-4 h-4 sm:w-5 sm:h-5" />
             </a>
           </div>
 
