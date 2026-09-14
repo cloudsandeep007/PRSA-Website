@@ -5,14 +5,32 @@ console.log("Seeding database with PRSA content...");
 
 initDb();
 
-// Seed Admin User
-const adminEmail = "admin@prsaroller.com";
-const existingUser = db.prepare("SELECT * FROM users WHERE email = ?").get(adminEmail);
-if (!existingUser) {
-  const hash = bcrypt.hashSync("Admin@123456", 10);
-  db.prepare("INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)").run("admin", adminEmail, hash, "Super Admin");
-  console.log("Seeded Super Admin user:", adminEmail);
+// Seed Super Admin User (Developer)
+const superAdminEmail = "superadmin@prsaroller.com";
+let existingSuper = db.prepare("SELECT * FROM users WHERE email = ?").get(superAdminEmail);
+if (!existingSuper) {
+  const hash = bcrypt.hashSync("SuperAdmin@123456", 10);
+  db.prepare("INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)").run("superadmin", superAdminEmail, hash, "Super Admin");
+  console.log("Seeded Super Admin user:", superAdminEmail);
 }
+
+// Seed Client Admin User (Academy Owner / Client Portal)
+const clientEmail = "client@prsaroller.com";
+let existingClient = db.prepare("SELECT * FROM users WHERE email = ?").get(clientEmail);
+if (!existingClient) {
+  const hash = bcrypt.hashSync("ClientAdmin@123456", 10);
+  db.prepare("INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)").run("clientadmin", clientEmail, hash, "Client Admin");
+  console.log("Seeded Client Admin user:", clientEmail);
+}
+
+// Legacy admin user fallback
+const legacyEmail = "admin@prsaroller.com";
+let existingLegacy = db.prepare("SELECT * FROM users WHERE email = ?").get(legacyEmail);
+if (!existingLegacy) {
+  const hash = bcrypt.hashSync("Admin@123456", 10);
+  db.prepare("INSERT INTO users (username, email, password_hash, role) VALUES (?, ?, ?, ?)").run("admin", legacyEmail, hash, "Super Admin");
+}
+
 
 // Seed Global Settings
 const defaultSettings = [

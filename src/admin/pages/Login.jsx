@@ -1,13 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Mail, ShieldAlert, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Lock, Mail, ShieldAlert, ArrowRight, ShieldCheck, Building, Terminal } from 'lucide-react';
 
 export default function Login({ setAuthToken }) {
-  const [email, setEmail] = useState('admin@prsaroller.com');
-  const [password, setPassword] = useState('Admin@123456');
+  const [email, setEmail] = useState('client@prsaroller.com');
+  const [password, setPassword] = useState('ClientAdmin@123456');
+  const [selectedRole, setSelectedRole] = useState('client'); // 'client' | 'super'
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const selectAccountMode = (mode) => {
+    setSelectedRole(mode);
+    setError('');
+    if (mode === 'client') {
+      setEmail('client@prsaroller.com');
+      setPassword('ClientAdmin@123456');
+    } else {
+      setEmail('superadmin@prsaroller.com');
+      setPassword('SuperAdmin@123456');
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,7 +38,13 @@ export default function Login({ setAuthToken }) {
         localStorage.setItem('prsa_admin_token', data.token);
         localStorage.setItem('prsa_admin_user', JSON.stringify(data.user));
         setAuthToken(data.token);
-        navigate('/admin/dashboard');
+        
+        // Redirect according to role
+        if (data.user.role === 'Super Admin') {
+          navigate('/admin/content');
+        } else {
+          navigate('/admin/dashboard');
+        }
       } else {
         setError(data.error || 'Login failed. Invalid credentials.');
       }
@@ -39,13 +58,60 @@ export default function Login({ setAuthToken }) {
   return (
     <div className="min-h-screen bg-surface flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-surface-container-low border border-outline-variant/30 rounded-2xl p-space-xl shadow-2xl space-y-6">
+        {/* Header */}
         <div className="text-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-primary-container to-primary text-on-primary-container flex items-center justify-center font-bold text-xl mx-auto shadow-lg">
             P
           </div>
-          <h2 className="text-2xl font-bold text-primary tracking-tight">PRSA ADMIN PORTAL</h2>
+          <h2 className="text-2xl font-bold text-primary tracking-tight">PRSA ACADEMY PORTAL</h2>
           <p className="text-xs text-on-surface-variant">
-            Secure Maintenance Portal for Academy Management
+            Select your account type to access your dedicated management portal
+          </p>
+        </div>
+
+        {/* Portal Account Mode Switcher */}
+        <div className="grid grid-cols-2 gap-2 bg-surface-container-high/60 p-1.5 rounded-xl border border-outline-variant/20">
+          <button
+            type="button"
+            onClick={() => selectAccountMode('client')}
+            className={`py-2.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+              selectedRole === 'client'
+                ? 'bg-primary-container text-on-primary-container shadow-md'
+                : 'text-on-surface-variant hover:text-on-surface'
+            }`}
+          >
+            <Building className="w-3.5 h-3.5" />
+            <span>Client Portal</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => selectAccountMode('super')}
+            className={`py-2.5 px-3 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+              selectedRole === 'super'
+                ? 'bg-amber-400 text-black shadow-md'
+                : 'text-on-surface-variant hover:text-on-surface'
+            }`}
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            <span>Super Admin</span>
+          </button>
+        </div>
+
+        {/* Portal Mode Info Box */}
+        <div className={`p-3 rounded-xl border text-xs ${
+          selectedRole === 'client'
+            ? 'bg-primary-container/10 border-primary-container/30 text-cyan-300'
+            : 'bg-amber-400/10 border-amber-400/30 text-amber-300'
+        }`}>
+          <div className="font-bold flex items-center gap-1.5 mb-0.5">
+            {selectedRole === 'client' ? <Building className="w-4 h-4 text-cyan-400" /> : <Terminal className="w-4 h-4 text-amber-400" />}
+            <span>{selectedRole === 'client' ? 'Client Operations Portal' : 'Super Admin Developer Portal'}</span>
+          </div>
+          <p className="text-[11px] text-on-surface-variant">
+            {selectedRole === 'client'
+              ? 'Access to Dashboard, Trial Bookings (Leads), Contact Enquiries, and Media Library.'
+              : 'Full control over Website CMS, SEO, Global Settings, Database Backup, and Developer System Diagnostics.'}
           </p>
         </div>
 
@@ -59,7 +125,7 @@ export default function Login({ setAuthToken }) {
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="text-xs font-bold text-on-surface-variant block mb-1">
-              ADMIN EMAIL ADDRESS
+              LOGIN EMAIL ADDRESS
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-outline absolute left-3 top-3.5" />
@@ -68,7 +134,6 @@ export default function Login({ setAuthToken }) {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="admin@prsaroller.com"
                 className="w-full bg-surface-container-high text-on-surface pl-10 pr-4 py-3 rounded-lg border border-outline-variant/30 text-sm focus:outline-none focus:ring-1 focus:ring-primary-container"
               />
             </div>
@@ -85,7 +150,6 @@ export default function Login({ setAuthToken }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                placeholder="••••••••"
                 className="w-full bg-surface-container-high text-on-surface pl-10 pr-4 py-3 rounded-lg border border-outline-variant/30 text-sm focus:outline-none focus:ring-1 focus:ring-primary-container"
               />
             </div>
@@ -94,11 +158,15 @@ export default function Login({ setAuthToken }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 rounded-lg bg-primary-container text-on-primary-container font-bold text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] transition-all flex items-center justify-center gap-2"
+            className={`w-full py-3.5 rounded-lg font-bold text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 ${
+              selectedRole === 'super'
+                ? 'bg-amber-400 text-black shadow-lg hover:bg-amber-300'
+                : 'bg-primary-container text-on-primary-container shadow-[0_0_20px_rgba(0,240,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)]'
+            }`}
           >
             {loading ? 'Authenticating...' : (
               <>
-                <span>Sign In To Admin Portal</span>
+                <span>Sign In To {selectedRole === 'super' ? 'Super Admin' : 'Client Portal'}</span>
                 <ArrowRight className="w-4 h-4" />
               </>
             )}
@@ -108,10 +176,10 @@ export default function Login({ setAuthToken }) {
         <div className="pt-4 border-t border-outline-variant/20 text-center space-y-1">
           <div className="flex items-center justify-center gap-1.5 text-xs text-primary font-semibold">
             <ShieldCheck className="w-4 h-4 text-primary-container" />
-            <span>256-Bit Encrypted Session</span>
+            <span>256-Bit Encrypted Role Session</span>
           </div>
           <p className="text-[11px] text-outline">
-            Default credentials: admin@prsaroller.com / Admin@123456
+            Client: client@prsaroller.com | Super Admin: superadmin@prsaroller.com
           </p>
         </div>
       </div>
