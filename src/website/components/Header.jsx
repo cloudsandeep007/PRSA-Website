@@ -13,9 +13,11 @@ export default function Header({ settings, onBookTrialClick }) {
         {/* Brand Insignia */}
         <div className="flex items-center gap-space-sm shrink-0">
           <a href="#" className="flex items-center gap-2.5 focus:outline-none">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-container to-primary flex items-center justify-center text-on-primary-container font-headline-sm font-bold shadow-[0_0_15px_rgba(0,240,255,0.4)]">
-              P
-            </div>
+            <img
+              src="/logo/prsa_logo.png"
+              alt="PRSA Logo"
+              className="w-10 h-10 rounded-xl object-contain shadow-[0_0_15px_rgba(0,240,255,0.4)]"
+            />
             <div className="flex flex-col">
               <span className="font-headline-sm text-headline-sm tracking-tight text-primary font-bold uppercase leading-none">PRSA</span>
               <span className="font-label-uppercase text-[9px] tracking-widest text-on-surface-variant font-bold hidden sm:inline-block">ROLLER SKATING ACADEMY</span>
@@ -23,6 +25,7 @@ export default function Header({ settings, onBookTrialClick }) {
             <span className="w-1.5 h-1.5 rounded-full bg-primary-container inline-block shadow-[0_0_8px_#00f0ff]"></span>
           </a>
         </div>
+
 
         {/* Desktop Navigation Links */}
         <nav className="hidden xl:flex items-center gap-1 bg-surface-container-lowest/60 p-1 rounded-lg border border-outline-variant/20">
