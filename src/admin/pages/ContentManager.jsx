@@ -136,47 +136,63 @@ export default function ContentManager({ authToken }) {
     }
   };
 
+  // Helper to convert file to Base64 Data URL for Vercel database storage
+  const fileToBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+
   // Called when user completes crop in ImageCropperModal
   const handleCroppedImageUpload = async (croppedFile) => {
     if (!cropTarget) return;
     const { fieldName, isSlideshowAdd } = cropTarget;
 
-    const formData = new FormData();
-    formData.append('file', croppedFile);
+    let finalImageUrl = '';
 
     try {
+      const formData = new FormData();
+      formData.append('file', croppedFile);
+
       const res = await fetch('/api/admin/media/upload', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${authToken}` },
         body: formData
       });
+
       if (res.ok) {
         const json = await res.json();
-        if (isSlideshowAdd) {
-          // Append to slideshow array
-          let currentList = [];
-          try {
-            currentList = JSON.parse(contentMap.hero_slideshow_urls || '[]');
-          } catch (e) {
-            currentList = ["/uploads/prsa_media_10.jpg"];
-          }
-          const updatedList = [...currentList, json.url];
-          setContentMap(prev => ({ ...prev, hero_slideshow_urls: JSON.stringify(updatedList) }));
-        } else if (editItem) {
-          setEditItem(prev => ({ ...prev, [fieldName]: json.url }));
-        } else {
-          setContentMap(prev => ({ ...prev, [fieldName]: json.url }));
-        }
+        finalImageUrl = json.url;
       } else {
-        alert('Upload failed');
+        // Fallback for Vercel serverless read-only filesystem: Convert to Base64 Data URL
+        finalImageUrl = await fileToBase64(croppedFile);
       }
     } catch (err) {
-      console.error(err);
-      alert('Upload error');
-    } finally {
-      setCropTarget(null);
+      console.warn('Disk upload endpoint unavailable. Falling back to embedded Base64 image string for Vercel:', err);
+      finalImageUrl = await fileToBase64(croppedFile);
     }
+
+    if (finalImageUrl) {
+      if (isSlideshowAdd) {
+        let currentList = [];
+        try {
+          currentList = JSON.parse(contentMap.hero_slideshow_urls || '[]');
+        } catch (e) {
+          currentList = ["/uploads/prsa_media_10.jpg"];
+        }
+        const updatedList = [...currentList, finalImageUrl];
+        setContentMap(prev => ({ ...prev, hero_slideshow_urls: JSON.stringify(updatedList) }));
+      } else if (editItem) {
+        setEditItem(prev => ({ ...prev, [fieldName]: finalImageUrl }));
+      } else {
+        setContentMap(prev => ({ ...prev, [fieldName]: finalImageUrl }));
+      }
+    }
+
+    setCropTarget(null);
   };
+
 
   // Remove photo from Hero Slideshow list
   const handleRemoveSlideshowImage = (indexToRemove) => {
