@@ -80,29 +80,33 @@ export default function Hero({ content, settings }) {
 
       {/* 2. BACKGROUND VIDEO MODE */}
       {heroType === 'video' && (
-        <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        <div className="absolute inset-0 z-0 overflow-hidden bg-slate-950">
+          {/* Always render background fallback photo layer behind video so screen is NEVER blank/black */}
+          <div 
+            className="w-full h-full bg-cover bg-center filter brightness-90 contrast-115 absolute inset-0 z-0"
+            style={{ backgroundImage: `url('${bgImage}'), url('https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=1920&auto=format&fit=crop')` }}
+          />
+
           {ytEmbedUrl ? (
             <iframe
               src={ytEmbedUrl}
               title="Hero Background Video"
-              className="w-full h-[140%] -mt-[10%] object-cover filter brightness-80 contrast-110 scale-125 pointer-events-none"
+              className="w-full h-[140%] -mt-[10%] object-cover filter brightness-80 contrast-110 scale-125 pointer-events-none relative z-10"
               allow="autoplay; encrypted-media"
             />
-          ) : videoUrl ? (
+          ) : (videoUrl && videoUrl !== 'SESSION_VIDEO') ? (
             <video
               src={videoUrl}
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover filter brightness-80 contrast-110 scale-105"
+              className="w-full h-full object-cover filter brightness-80 contrast-110 scale-105 relative z-10"
+              onError={(e) => {
+                e.target.style.display = 'none';
+              }}
             />
-          ) : (
-            <div 
-              className="w-full h-full bg-cover bg-center filter brightness-80"
-              style={{ backgroundImage: `url('${bgImage}')` }}
-            />
-          )}
+          ) : null}
         </div>
       )}
 

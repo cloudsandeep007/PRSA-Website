@@ -524,8 +524,33 @@ export default function ContentManager({ authToken }) {
 
             {/* TYPE B: BACKGROUND VIDEO */}
             {contentMap.hero_type === 'video' && (
-              <div className="pt-2 space-y-2">
-                <label className="text-xs font-bold text-on-surface-variant block">BACKGROUND VIDEO URL (.MP4 File, YouTube URL, or Uploaded Video)</label>
+              <div className="pt-2 space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-on-surface-variant block">BACKGROUND VIDEO URL (.MP4 File, YouTube URL, or Uploaded Video)</label>
+                  <span className="text-[10px] text-primary font-bold">💡 Tip: Use YouTube links or Video Presets for 100% cross-device compatibility</span>
+                </div>
+
+                {/* 1-Click Video Presets */}
+                <div className="flex flex-wrap items-center gap-2 pb-1 bg-surface-container-high/40 p-2.5 rounded-xl border border-outline-variant/30">
+                  <span className="text-[10px] font-extrabold text-on-surface-variant uppercase">1-Click HD Video Presets:</span>
+                  <button
+                    type="button"
+                    onClick={() => setContentMap({ ...contentMap, hero_video_url: 'https://assets.mixkit.co/videos/preview/mixkit-skaters-racing-on-an-outdoor-rink-41561-large.mp4', hero_type: 'video' })}
+                    className="px-2.5 py-1 rounded-lg bg-surface-container-high text-primary font-semibold text-[11px] border border-outline-variant/30 hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-1 shadow-sm"
+                  >
+                    <Play className="w-3 h-3 text-cyan-400" />
+                    <span>⚡ Speed Racing HD Preset</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setContentMap({ ...contentMap, hero_video_url: 'https://assets.mixkit.co/videos/preview/mixkit-roller-skater-performing-tricks-in-a-skate-park-42777-large.mp4', hero_type: 'video' })}
+                    className="px-2.5 py-1 rounded-lg bg-surface-container-high text-primary font-semibold text-[11px] border border-outline-variant/30 hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-1 shadow-sm"
+                  >
+                    <Play className="w-3 h-3 text-cyan-400" />
+                    <span>🏁 Slalom Agility HD Preset</span>
+                  </button>
+                </div>
+
                 <div className="flex gap-2">
                   <input
                     type="text"
