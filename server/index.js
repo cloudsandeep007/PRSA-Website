@@ -576,6 +576,62 @@ app.get('/api/admin/backup', authenticateToken, (req, res) => {
     .catch(err => res.status(500).json({ error: 'Backup failed: ' + err.message }));
 });
 
+// Developer Portal: Real-time System & Database Diagnostics
+app.get('/api/admin/developer/status', authenticateToken, (req, res) => {
+  try {
+    const memory = process.memoryUsage();
+    
+    // Database Table Row Counters
+    const tableCounts = {
+      users: db.prepare('SELECT COUNT(*) as count FROM users').get().count,
+      content: db.prepare('SELECT COUNT(*) as count FROM content').get().count,
+      programs: db.prepare('SELECT COUNT(*) as count FROM programs').get().count,
+      coaches: db.prepare('SELECT COUNT(*) as count FROM coaches').get().count,
+      events: db.prepare('SELECT COUNT(*) as count FROM events').get().count,
+      achievements: db.prepare('SELECT COUNT(*) as count FROM achievements').get().count,
+      gallery: db.prepare('SELECT COUNT(*) as count FROM gallery').get().count,
+      testimonials: db.prepare('SELECT COUNT(*) as count FROM testimonials').get().count,
+      locations: db.prepare('SELECT COUNT(*) as count FROM locations').get().count,
+      faqs: db.prepare('SELECT COUNT(*) as count FROM faqs').get().count,
+      trial_bookings: db.prepare('SELECT COUNT(*) as count FROM trial_bookings').get().count,
+      contact_enquiries: db.prepare('SELECT COUNT(*) as count FROM contact_enquiries').get().count,
+      activity_logs: db.prepare('SELECT COUNT(*) as count FROM activity_logs').get().count,
+    };
+
+    // Calculate uploaded files size
+    let mediaCount = 0;
+    let totalSizeBytes = 0;
+    if (fs.existsSync(uploadsDir)) {
+      const files = fs.readdirSync(uploadsDir);
+      mediaCount = files.length;
+      files.forEach(f => {
+        try {
+          totalSizeBytes += fs.statSync(path.join(uploadsDir, f)).size;
+        } catch (e) {}
+      });
+    }
+
+    res.json({
+      success: true,
+      serverTime: new Date().toISOString(),
+      uptimeSeconds: Math.floor(process.uptime()),
+      nodeVersion: process.version,
+      platform: process.platform,
+      memory: {
+        rssMB: (memory.rss / (1024 * 1024)).toFixed(2),
+        heapTotalMB: (memory.heapTotal / (1024 * 1024)).toFixed(2),
+        heapUsedMB: (memory.heapUsed / (1024 * 1024)).toFixed(2)
+      },
+      tableCounts,
+      mediaCount,
+      mediaSizeMB: (totalSizeBytes / (1024 * 1024)).toFixed(2)
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch developer status: ' + err.message });
+  }
+});
+
+
 // Sitemap.xml Endpoint
 app.get('/sitemap.xml', (req, res) => {
   const baseUrl = req.protocol + '://' + req.get('host');

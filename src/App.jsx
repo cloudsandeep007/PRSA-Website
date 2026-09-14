@@ -10,6 +10,7 @@ import ContentManager from './admin/pages/ContentManager';
 import MediaLibrary from './admin/pages/MediaLibrary';
 import SEOManager from './admin/pages/SEOManager';
 import SettingsManager from './admin/pages/SettingsManager';
+import DeveloperPortal from './admin/pages/DeveloperPortal';
 
 export default function App() {
   const [authToken, setAuthToken] = useState(() => localStorage.getItem('prsa_admin_token') || '');
@@ -49,12 +50,14 @@ export default function App() {
                 <Route path="media" element={<MediaLibrary authToken={authToken} />} />
                 <Route path="seo" element={<SEOManager authToken={authToken} />} />
                 <Route path="settings" element={<SettingsManager authToken={authToken} />} />
+                <Route path="developer" element={<DeveloperPortal authToken={authToken} />} />
                 <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
               </Routes>
             </AdminLayout>
           )
         }
       />
+
 
       {/* 404 Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

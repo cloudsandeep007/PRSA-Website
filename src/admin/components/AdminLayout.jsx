@@ -15,7 +15,8 @@ import {
   ExternalLink,
   Shield,
   Layers,
-  Sparkles
+  Sparkles,
+  Terminal
 } from 'lucide-react';
 
 export default function AdminLayout({ children, authToken, onLogout }) {
@@ -33,7 +34,9 @@ export default function AdminLayout({ children, authToken, onLogout }) {
     { name: 'Media Library', path: '/admin/media', icon: Image },
     { name: 'SEO Management', path: '/admin/seo', icon: Search },
     { name: 'Settings & Backup', path: '/admin/settings', icon: Settings },
+    { name: 'Developer Portal', path: '/admin/developer', icon: Terminal },
   ];
+
 
   return (
     <div className="min-h-screen bg-surface flex font-body-md text-on-surface">
