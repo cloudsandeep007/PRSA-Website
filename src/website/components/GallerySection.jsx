@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import { Camera, X, Play, ZoomIn } from 'lucide-react';
 
-export default function GallerySection({ gallery }) {
+const defaultGallery = [
+  { id: 1, title: "Speed Squad Night Practice", category: "Inline Speed", url: "/uploads/prsa_media_10.jpg", fallback_url: "https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=800&auto=format&fit=crop", caption: "3000W Floodlit Arena • Banked Synthetic Track" },
+  { id: 2, title: "Tots Quad Balance Session", category: "Quad Skates", url: "/uploads/prsa_media_03.jpg", fallback_url: "https://images.unsplash.com/photo-1517649763962-0c623266010b?q=80&w=800&auto=format&fit=crop", caption: "Grassroots Foundation • Ages 4-7" },
+  { id: 3, title: "RSFI State Medal Ceremony", category: "Events", url: "/uploads/prsa_media_01.jpg", fallback_url: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop", caption: "State Championship Podium Winners" },
+  { id: 4, title: "110mm Inline Sprint Drills", category: "Inline Speed", url: "/uploads/prsa_media_02.jpg", fallback_url: "https://images.unsplash.com/photo-1565992441121-4367c2967103?q=80&w=800&auto=format&fit=crop", caption: "High-Velocity Corner Crossovers" },
+  { id: 5, title: "Artistic Slalom Cone Maneuver", category: "Events", url: "/uploads/prsa_media_05.jpg", fallback_url: "https://images.unsplash.com/photo-1502680390469-be75c86b636f?q=80&w=800&auto=format&fit=crop", caption: "Freestyle Slalom & Rocker Frames" },
+  { id: 6, title: "Inter-School Trophy Presentation", category: "Events", url: "/uploads/prsa_media_11.jpg", fallback_url: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop", caption: "Overall Team Trophy Champions" },
+  { id: 7, title: "Quad Track Sprints", category: "Quad Skates", url: "/uploads/prsa_media_06.jpg", fallback_url: "https://images.unsplash.com/photo-1517649763962-0c623266010b?q=80&w=800&auto=format&fit=crop", caption: "Safety Guard Rail Perimeter" },
+  { id: 8, title: "Digital Lap Timing Telemetry", category: "Inline Speed", url: "/uploads/prsa_media_13.jpg", fallback_url: "https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=800&auto=format&fit=crop", caption: "RSFI Transponder Lap Tracking" }
+];
+
+export default function GallerySection({ gallery = [] }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [activeLightbox, setActiveLightbox] = useState(null);
 
+  const displayGallery = gallery && gallery.length > 0 ? gallery : defaultGallery;
   const categories = ['All', 'Quad Skates', 'Inline Speed', 'Events'];
 
-  const filteredGallery = gallery.filter(g => {
+  const filteredGallery = displayGallery.filter(g => {
     if (selectedCategory === 'All') return true;
-    return g.category === selectedCategory || g.title.includes(selectedCategory);
+    return g.category === selectedCategory || (g.title && g.title.includes(selectedCategory));
   });
 
   return (
@@ -24,7 +36,7 @@ export default function GallerySection({ gallery }) {
             <h2 className="font-headline-xl text-2xl sm:text-3xl md:text-4xl text-primary font-bold mt-1">
               PRSA MEDIA GALLERY
             </h2>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl">
+            <p className="font-body-md text-body-md text-on-surface-variant mt-2 max-w-xl text-xs sm:text-sm">
               High-resolution action photography and video clips captured at our dedicated floodlit speed rink and championship meets.
             </p>
           </div>
@@ -48,31 +60,38 @@ export default function GallerySection({ gallery }) {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-space-md">
-          {filteredGallery.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => setActiveLightbox(item)}
-              className="relative aspect-[4/3] rounded-xl overflow-hidden bg-surface-container-high border border-outline-variant/30 group cursor-pointer shadow-md hover:border-primary-container transition-all"
-            >
-              <img
-                src={item.url}
-                alt={item.title || "PRSA Gallery Photo"}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = 'https://placehold.co/600x450?text=PRSA+Action+Photo';
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end">
-                <span className="text-xs text-primary font-bold truncate">{item.title}</span>
-                <span className="text-[10px] text-on-surface-variant">{item.caption}</span>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-space-md">
+          {filteredGallery.map((item, idx) => {
+            const fallbackImg = defaultGallery[idx % defaultGallery.length]?.fallback_url || "https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=800&auto=format&fit=crop";
+            const mediaUrl = item.url || fallbackImg;
+
+            return (
+              <div
+                key={item.id || idx}
+                onClick={() => setActiveLightbox({ ...item, url: mediaUrl })}
+                className="relative aspect-[4/3] rounded-xl overflow-hidden bg-surface-container-high border border-outline-variant/30 group cursor-pointer shadow-md hover:border-primary-container transition-all"
+              >
+                <img
+                  src={mediaUrl}
+                  alt={item.title || "PRSA Gallery Photo"}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = fallbackImg;
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity p-2.5 sm:p-3 flex flex-col justify-end">
+                  <span className="text-[11px] sm:text-xs text-primary font-bold truncate">{item.title}</span>
+                  {item.caption && (
+                    <span className="text-[9px] sm:text-[10px] text-on-surface-variant line-clamp-1">{item.caption}</span>
+                  )}
+                </div>
+                <div className="absolute top-2 right-2 p-1.5 rounded-full bg-surface-container-lowest/80 text-primary-container opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ZoomIn className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                </div>
               </div>
-              <div className="absolute top-2 right-2 p-1.5 rounded-full bg-surface-container-lowest/80 text-primary-container opacity-0 group-hover:opacity-100 transition-opacity">
-                <ZoomIn className="w-4 h-4" />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
@@ -91,10 +110,14 @@ export default function GallerySection({ gallery }) {
               src={activeLightbox.url}
               alt={activeLightbox.title}
               className="max-h-[80vh] w-auto mx-auto object-contain rounded-xl border border-outline-variant/30 shadow-2xl"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "https://images.unsplash.com/photo-1547447134-cd3f5c716030?q=80&w=800&auto=format&fit=crop";
+              }}
             />
 
             <div className="text-center space-y-1 pt-2">
-              <h4 className="text-lg font-bold text-primary">{activeLightbox.title}</h4>
+              <h4 className="text-base sm:text-lg font-bold text-primary">{activeLightbox.title}</h4>
               <p className="text-xs text-on-surface-variant">{activeLightbox.caption}</p>
             </div>
           </div>
