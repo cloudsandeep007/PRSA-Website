@@ -39,6 +39,25 @@ export default function Hero({ content, settings }) {
     return () => clearInterval(interval);
   }, [heroType, slideshowUrls.length]);
 
+  // Helper to extract YouTube embed URL if YouTube link is provided
+  const getYouTubeEmbedUrl = (url) => {
+    if (!url) return null;
+    let videoId = null;
+    if (url.includes('youtube.com/watch?v=')) {
+      videoId = url.split('v=')[1]?.split('&')[0];
+    } else if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1]?.split('?')[0];
+    } else if (url.includes('youtube.com/embed/')) {
+      videoId = url.split('embed/')[1]?.split('?')[0];
+    }
+    if (videoId) {
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&showinfo=0&autohide=1&modestbranding=1`;
+    }
+    return null;
+  };
+
+  const ytEmbedUrl = getYouTubeEmbedUrl(videoUrl);
+
   return (
     <section className="relative w-full -mt-20 overflow-hidden bg-surface-container-lowest min-h-[92vh] flex flex-col justify-end">
       
@@ -55,7 +74,14 @@ export default function Hero({ content, settings }) {
       {/* 2. BACKGROUND VIDEO MODE */}
       {heroType === 'video' && (
         <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-          {videoUrl ? (
+          {ytEmbedUrl ? (
+            <iframe
+              src={ytEmbedUrl}
+              title="Hero Background Video"
+              className="w-full h-[140%] -mt-[10%] object-cover filter brightness-80 contrast-110 scale-125 pointer-events-none"
+              allow="autoplay; encrypted-media"
+            />
+          ) : videoUrl ? (
             <video
               src={videoUrl}
               autoPlay

@@ -133,11 +133,16 @@ export default function ContentManager({ authToken }) {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('file', file);
+    // Warning for very large files (>20MB)
+    if (file.size > 20 * 1024 * 1024) {
+      alert("Note: Video files over 20MB may take a few moments to process. Consider compressing or using a YouTube link if slow.");
+    }
 
     setUploadingVideo(true);
     try {
+      const formData = new FormData();
+      formData.append('file', file);
+
       const res = await fetch('/api/admin/media/upload', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${authToken}` },
@@ -145,12 +150,23 @@ export default function ContentManager({ authToken }) {
       });
       if (res.ok) {
         const json = await res.json();
-        setContentMap(prev => ({ ...prev, hero_video_url: json.url }));
+        setContentMap(prev => ({ ...prev, hero_video_url: json.url, hero_type: 'video' }));
+      } else {
+        // Fallback for Vercel serverless read-only filesystem: Convert video file to Base64 Data URL
+        const base64Url = await fileToBase64(file);
+        setContentMap(prev => ({ ...prev, hero_video_url: base64Url, hero_type: 'video' }));
       }
     } catch (err) {
-      console.error(err);
+      console.warn('Disk upload endpoint failed for video. Falling back to Base64 Data URL for Vercel:', err);
+      try {
+        const base64Url = await fileToBase64(file);
+        setContentMap(prev => ({ ...prev, hero_video_url: base64Url, hero_type: 'video' }));
+      } catch (bErr) {
+        console.error('Failed to convert video to Base64:', bErr);
+      }
     } finally {
       setUploadingVideo(false);
+      e.target.value = '';
     }
   };
 
@@ -472,13 +488,13 @@ export default function ContentManager({ authToken }) {
             {/* TYPE B: BACKGROUND VIDEO */}
             {contentMap.hero_type === 'video' && (
               <div className="pt-2 space-y-2">
-                <label className="text-xs font-bold text-on-surface-variant block">BACKGROUND VIDEO URL (.MP4 File or Direct Video Link)</label>
+                <label className="text-xs font-bold text-on-surface-variant block">BACKGROUND VIDEO URL (.MP4 File, YouTube URL, or Uploaded Video)</label>
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={contentMap.hero_video_url || ''}
                     onChange={(e) => setContentMap({ ...contentMap, hero_video_url: e.target.value })}
-                    placeholder="https://yourdomain.com/uploads/hero-skating-video.mp4"
+                    placeholder="Paste MP4 link, YouTube URL (e.g. https://www.youtube.com/watch?v=...), or click Upload 👉"
                     className="flex-1 bg-surface-container-high text-xs p-3 rounded-lg border border-outline-variant/30 text-on-surface"
                   />
                   <label className="cursor-pointer px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-bold text-xs flex items-center gap-1.5 shrink-0 shadow-md hover:bg-cyan-400">
@@ -492,8 +508,31 @@ export default function ContentManager({ authToken }) {
                     />
                   </label>
                 </div>
+
+                {/* Attached Video Preview */}
+                {contentMap.hero_video_url && (
+                  <div className="mt-2 p-3 bg-black/60 rounded-xl border border-primary-container/40 space-y-2">
+                    <div className="text-[11px] text-primary font-bold flex items-center gap-1.5">
+                      <Play className="w-3.5 h-3.5 text-primary-container" />
+                      <span>Attached Hero Video Preview</span>
+                    </div>
+                    {contentMap.hero_video_url.includes('youtube.com') || contentMap.hero_video_url.includes('youtu.be') ? (
+                      <div className="text-xs text-amber-300 font-semibold p-2 bg-amber-500/10 rounded-lg border border-amber-500/30">
+                        📺 YouTube Video URL attached! YouTube video will auto-play muted seamlessly in the background on your live website.
+                      </div>
+                    ) : (
+                      <video
+                        src={contentMap.hero_video_url}
+                        controls
+                        muted
+                        className="w-full max-h-48 rounded-lg object-contain bg-black"
+                      />
+                    )}
+                  </div>
+                )}
+
                 <div className="text-[10px] text-cyan-300">
-                  ℹ️ The background video will automatically loop on mute to provide a cinematic, high-speed skating experience.
+                  ℹ️ The background video automatically loops on mute. Make sure to click <strong>"Save Homepage Hero Changes"</strong> below to push live!
                 </div>
               </div>
             )}
