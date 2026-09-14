@@ -58,7 +58,11 @@ export default function GallerySection({ gallery }) {
               <img
                 src={item.url}
                 alt={item.title || "PRSA Gallery Photo"}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = 'https://placehold.co/600x450?text=PRSA+Action+Photo';
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end">
                 <span className="text-xs text-primary font-bold truncate">{item.title}</span>
