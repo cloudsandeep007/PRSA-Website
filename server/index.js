@@ -87,7 +87,10 @@ const upload = multer({
 // Middleware: Authenticate Admin JWT Token
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
+  let token = authHeader && authHeader.split(' ')[1];
+  if (!token && req.query && req.query.token) {
+    token = req.query.token;
+  }
   if (!token) return res.status(401).json({ error: 'Authentication token required' });
 
   jwt.verify(token, JWT_SECRET, (err, user) => {

@@ -150,7 +150,159 @@ try {
         },
         run: (...params) => {
           autoId++;
-          if (trimmed.includes('INSERT INTO users')) {
+          // 1. DELETE statements
+          if (trimmed.includes('DELETE FROM coaches')) {
+            const targetId = params[0];
+            memoryStore.coaches = memoryStore.coaches.filter(c => String(c.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM programs')) {
+            const targetId = params[0];
+            memoryStore.programs = memoryStore.programs.filter(p => String(p.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM events')) {
+            const targetId = params[0];
+            memoryStore.events = memoryStore.events.filter(e => String(e.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM achievements')) {
+            const targetId = params[0];
+            memoryStore.achievements = memoryStore.achievements.filter(a => String(a.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM gallery')) {
+            const targetId = params[0];
+            memoryStore.gallery = memoryStore.gallery.filter(g => String(g.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM testimonials')) {
+            const targetId = params[0];
+            memoryStore.testimonials = memoryStore.testimonials.filter(t => String(t.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM locations')) {
+            const targetId = params[0];
+            memoryStore.locations = memoryStore.locations.filter(l => String(l.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM faqs')) {
+            const targetId = params[0];
+            memoryStore.faqs = memoryStore.faqs.filter(f => String(f.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM trial_bookings')) {
+            const targetId = params[0];
+            memoryStore.trial_bookings = memoryStore.trial_bookings.filter(b => String(b.id) !== String(targetId));
+          } else if (trimmed.includes('DELETE FROM contact_enquiries')) {
+            const targetId = params[0];
+            memoryStore.contact_enquiries = memoryStore.contact_enquiries.filter(c => String(c.id) !== String(targetId));
+          }
+          // 2. UPDATE statements
+          else if (trimmed.includes('UPDATE programs SET')) {
+            const targetId = params[10];
+            const item = memoryStore.programs.find(p => String(p.id) === String(targetId));
+            if (item) {
+              item.name = params[0];
+              item.age_group = params[1];
+              item.level = params[2];
+              item.short_desc = params[3];
+              item.full_desc = params[4];
+              item.image_url = params[5];
+              item.schedule = params[6];
+              item.duration = params[7];
+              item.display_order = params[8];
+              item.is_published = params[9];
+            }
+          } else if (trimmed.includes('UPDATE coaches SET')) {
+            const targetId = params[9];
+            const item = memoryStore.coaches.find(c => String(c.id) === String(targetId));
+            if (item) {
+              item.name = params[0];
+              item.position = params[1];
+              item.photo_url = params[2];
+              item.experience = params[3];
+              item.specialization = params[4];
+              item.achievements = params[5];
+              item.bio = params[6];
+              item.display_order = params[7];
+              item.is_published = params[8];
+            }
+          } else if (trimmed.includes('UPDATE events SET')) {
+            const targetId = params[9];
+            const item = memoryStore.events.find(e => String(e.id) === String(targetId));
+            if (item) {
+              item.title = params[0];
+              item.category = params[1];
+              item.date_str = params[2];
+              item.time_str = params[3];
+              item.location = params[4];
+              item.description = params[5];
+              item.image_url = params[6];
+              item.registration_status = params[7];
+              item.is_published = params[8];
+            }
+          } else if (trimmed.includes('UPDATE achievements SET')) {
+            const targetId = params[7];
+            const item = memoryStore.achievements.find(a => String(a.id) === String(targetId));
+            if (item) {
+              item.title = params[0];
+              item.category = params[1];
+              item.year = params[2];
+              item.count_label = params[3];
+              item.description = params[4];
+              item.image_url = params[5];
+              item.display_order = params[6];
+            }
+          } else if (trimmed.includes('UPDATE gallery SET')) {
+            const targetId = params[7];
+            const item = memoryStore.gallery.find(g => String(g.id) === String(targetId));
+            if (item) {
+              item.title = params[0];
+              item.category = params[1];
+              item.media_type = params[2];
+              item.url = params[3];
+              item.caption = params[4];
+              item.display_order = params[5];
+              item.is_published = params[6];
+            }
+          } else if (trimmed.includes('UPDATE testimonials SET')) {
+            const targetId = params[6];
+            const item = memoryStore.testimonials.find(t => String(t.id) === String(targetId));
+            if (item) {
+              item.name = params[0];
+              item.role_desc = params[1];
+              item.quote = params[2];
+              item.rating = params[3];
+              item.photo_url = params[4];
+              item.is_published = params[5];
+            }
+          } else if (trimmed.includes('UPDATE locations SET')) {
+            const targetId = params[10];
+            const item = memoryStore.locations.find(l => String(l.id) === String(targetId));
+            if (item) {
+              item.name = params[0];
+              item.tag_label = params[1];
+              item.address = params[2];
+              item.phone = params[3];
+              item.schedule = params[4];
+              item.maps_url = params[5];
+              item.description = params[6];
+              item.photo_url = params[7];
+              item.display_order = params[8];
+              item.is_published = params[9];
+            }
+          } else if (trimmed.includes('UPDATE faqs SET')) {
+            const targetId = params[5];
+            const item = memoryStore.faqs.find(f => String(f.id) === String(targetId));
+            if (item) {
+              item.question = params[0];
+              item.answer = params[1];
+              item.category = params[2];
+              item.display_order = params[3];
+              item.is_published = params[4];
+            }
+          } else if (trimmed.includes('UPDATE trial_bookings SET')) {
+            const targetId = params[2];
+            const item = memoryStore.trial_bookings.find(b => String(b.id) === String(targetId));
+            if (item) {
+              item.status = params[0];
+              item.notes = params[1];
+            }
+          } else if (trimmed.includes('UPDATE contact_enquiries SET')) {
+            const targetId = params[2];
+            const item = memoryStore.contact_enquiries.find(c => String(c.id) === String(targetId));
+            if (item) {
+              item.status = params[0];
+              item.notes = params[1];
+            }
+          }
+          // 3. INSERT statements
+          else if (trimmed.includes('INSERT INTO users')) {
             memoryStore.users.push({ id: autoId, username: params[0], email: params[1], password_hash: params[2], role: params[3] || 'admin' });
           } else if (trimmed.includes('INSERT OR REPLACE INTO content') || trimmed.includes('INSERT INTO content')) {
             memoryStore.content[params[0]] = params[1];

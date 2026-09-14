@@ -30,7 +30,8 @@ export default function ContentManager({ authToken }) {
 
   const safeFetchJson = async (url, fallback = []) => {
     try {
-      const res = await fetch(url);
+      const cacheBuster = url.includes('?') ? `&t=${Date.now()}` : `?t=${Date.now()}`;
+      const res = await fetch(url + cacheBuster);
       if (res.ok) {
         const text = await res.text();
         try {
@@ -294,22 +295,43 @@ export default function ContentManager({ authToken }) {
       if (res.ok) {
         setEditItem(null);
         loadAllContent();
+      } else {
+        alert(`Failed to save ${type.slice(0, -1)}. Status: ${res.status}`);
       }
     } catch (err) {
       console.error(err);
+      alert(`Error saving item: ${err.message}`);
     }
   };
 
   const handleDeleteItem = async (type, id) => {
     if (!window.confirm(`Are you sure you want to delete this item?`)) return;
+
+    // Immediate Optimistic UI Removal
+    if (type === 'coaches') setCoaches(prev => prev.filter(c => String(c.id) !== String(id)));
+    else if (type === 'programs') setPrograms(prev => prev.filter(p => String(p.id) !== String(id)));
+    else if (type === 'events') setEvents(prev => prev.filter(e => String(e.id) !== String(id)));
+    else if (type === 'achievements') setAchievements(prev => prev.filter(a => String(a.id) !== String(id)));
+    else if (type === 'gallery') setGallery(prev => prev.filter(g => String(g.id) !== String(id)));
+    else if (type === 'testimonials') setTestimonials(prev => prev.filter(t => String(t.id) !== String(id)));
+    else if (type === 'locations') setLocations(prev => prev.filter(l => String(l.id) !== String(id)));
+    else if (type === 'faqs') setFaqs(prev => prev.filter(f => String(f.id) !== String(id)));
+
     try {
       const res = await fetch(`/api/admin/${type}/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${authToken}` }
       });
-      if (res.ok) loadAllContent();
+      if (res.ok) {
+        loadAllContent();
+      } else {
+        alert(`Failed to delete item from server.`);
+        loadAllContent();
+      }
     } catch (err) {
       console.error(err);
+      alert(`Error deleting item: ${err.message}`);
+      loadAllContent();
     }
   };
 
