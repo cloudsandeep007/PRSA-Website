@@ -142,9 +142,8 @@ export default function Hero({ content, settings }) {
         {/* Hero Headline & Insignia */}
         <div className="max-w-4xl space-y-space-md">
           <div className="inline-flex items-center gap-3 bg-surface-container-lowest/80 backdrop-blur px-4 py-2 rounded-xl border border-outline-variant/30 mb-1">
-            <div className="w-6 h-6 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xs">
-              P
-            </div>
+            <img src="/logo/prsa_logo.png" alt="PRSA Logo" className="h-7 w-auto object-contain" />
+
             <div className="h-4 w-[1px] bg-outline-variant/40"></div>
             <span className="font-label-uppercase text-[11px] text-primary-container font-bold tracking-widest">
               {settings.academy_name || "PROFESSIONAL ROLLER SKATING ACADEMY"}

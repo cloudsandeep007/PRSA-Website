@@ -15,9 +15,10 @@ export default function Header({ settings, onBookTrialClick }) {
           <a href="#" className="flex items-center gap-2.5 focus:outline-none">
             <img
               src="/logo/prsa_logo.png"
-              alt="PRSA Logo"
-              className="w-10 h-10 rounded-xl object-contain shadow-[0_0_15px_rgba(0,240,255,0.4)]"
+              alt="PRSA Official Logo"
+              className="h-10 w-auto object-contain transition-transform hover:scale-105"
             />
+
             <div className="flex flex-col">
               <span className="font-headline-sm text-headline-sm tracking-tight text-primary font-bold uppercase leading-none">PRSA</span>
               <span className="font-label-uppercase text-[9px] tracking-widest text-on-surface-variant font-bold hidden sm:inline-block">ROLLER SKATING ACADEMY</span>
