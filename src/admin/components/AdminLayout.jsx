@@ -34,8 +34,8 @@ export default function AdminLayout({ children, authToken, onLogout }) {
     { name: 'Dashboard (Leads Overview)', path: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Trial Bookings (Leads)', path: '/admin/trial-bookings', icon: Users },
     { name: 'Contact Enquiries', path: '/admin/contact-enquiries', icon: MessageSquare },
-    { name: 'Media Library', path: '/admin/media', icon: Image },
   ];
+
 
   const superAdminNavItems = [
     { name: 'Website CMS Manager', path: '/admin/content', icon: FileText },
