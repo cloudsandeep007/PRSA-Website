@@ -20,7 +20,7 @@ export default function Hero({ content, settings }) {
     } catch (e) {}
   }
   if (!videoUrl) {
-    videoUrl = "https://assets.mixkit.co/videos/preview/mixkit-skaters-racing-on-an-outdoor-rink-41561-large.mp4";
+    videoUrl = "/uploads/prsa_hero_video.mp4";
   }
   
   // Slideshow URLs parsing
